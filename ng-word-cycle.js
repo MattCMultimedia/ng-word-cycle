@@ -2,10 +2,9 @@ angular.module('ngWordCycle')
 .directive('ngWordCycle', function($interval) {
     return {
         restrict: 'AE',
-        // replace: true,
-        template: '<span class="fade-in-out">{{word}}</span>',
+        template: '{{word}}',
         scope: {
-            words: '='
+            words: '@'
         },
         link: function(scope, el, attrs) {
             var m = scope.words.length;
@@ -20,7 +19,7 @@ angular.module('ngWordCycle')
             $interval(function() {
                 scope.word = scope.words[i++];
                 if (i >= m) { i=0; }
-            }, attrs.interval || 3200);
+            }, window.parseInt(attrs.interval, 10) || 3200);
         }
     };
 });
